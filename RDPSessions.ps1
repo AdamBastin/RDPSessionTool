@@ -83,7 +83,7 @@ $wpftxtComputer.add_TextChanged({
     $global:searching = $true
     $wpflstvDisplay.items.clear()
     $name = $wpftxtComputer.text
-    $computers= Get-ADComputer -Filter "Name -like '*$name*'" -Properties Name -ErrorAction SilentlyContinue
+    $computers= try{Get-ADComputer -Filter "Name -like '*$name*'" -Properties Name -ErrorAction Stop}catch{}
     if(($computers.length -lt 100 -and $computers.length -gt -1) -or ($computers.name -ne '')){
         foreach($computer in $computers){
             $server = [PSCustomObject]@{
